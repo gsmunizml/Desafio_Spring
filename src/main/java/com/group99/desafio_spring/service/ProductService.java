@@ -29,6 +29,10 @@ public class ProductService implements IProduct {
     public List<Product> getFiltered(Optional<String> category, Optional<Boolean> freeShipping, Optional<Integer> order, Optional<String> prestige){
         List<Product> products = repo.getAll(); // adicionar filtro
 
+        if (category.isPresent() && freeShipping.isPresent()) {
+           products = orderByCategoryShipping(products, category.get(), freeShipping.get());
+        }
+
         if(!order.isEmpty()){
             switch (order.get().intValue()){
                 case 0:
@@ -42,7 +46,7 @@ public class ProductService implements IProduct {
             }
         }
 
-        return products.stream().collect(Collectors.toList());
+        return products;
     }
 
     private List<Product> orderByAlphabeticNormal(List<Product> products){
@@ -59,15 +63,21 @@ public class ProductService implements IProduct {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ProductDTO> addProductList(List<Product> products) {
+        repo.addProductList(products);
+        return products.stream().map(ProductDTO::new).collect(Collectors.toList());
+    }
+
     private List<Product> orderByLowestPrice(List<Product> products) {
         return products.stream()
                 .sorted((p1, p2) -> p1.getPrice().intValue() - p2.getPrice().intValue())
                 .collect(Collectors.toList());
     }
 
-    private List<Product> orderByCategoryShipping(List<Product> products, String cateogry, boolean shipping) {
+    private List<Product> orderByCategoryShipping(List<Product> products, String category, boolean shipping) {
         return products.stream()
-                .filter(p -> p.getCategory() == cateogry && shipping)
+                .filter(p -> p.getCategory().equals(category) && shipping == p.isFreeShipping())
                 .collect(Collectors.toList());
     }
 }
