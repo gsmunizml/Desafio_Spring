@@ -10,4 +10,6 @@ public interface IProduct {
     List<ProductDTO> getAll();
 
     List<ProductDTO> getFiltered(Optional<String> category, Optional<Boolean> freeShipping, Optional<Integer> order, Optional<String> prestige);
+
+    List<ProductDTO> addProductList(List<Product> products);
 }

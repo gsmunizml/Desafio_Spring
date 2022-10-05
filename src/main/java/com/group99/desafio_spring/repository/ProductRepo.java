@@ -3,6 +3,7 @@ package com.group99.desafio_spring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.group99.desafio_spring.dto.ProductDTO;
 import com.group99.desafio_spring.model.Product;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepo {
