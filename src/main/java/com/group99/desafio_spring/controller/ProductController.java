@@ -8,24 +8,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/articles")
+@RequestMapping("/api/v1")
 public class ProductController {
 
     @Autowired
     private IProduct service;
 
-    @GetMapping()
-    public ResponseEntity<List<ProductDTO>> getAll(){
-        return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
-    }
+    @GetMapping("/articles")
+    public ResponseEntity<List<Product>> getList(@RequestParam Optional<String> category,
+                                                    @RequestParam Optional<Boolean> freeShipping,
+                                                    @RequestParam Optional<Integer> order,
+                                                    @RequestParam Optional<String> prestige){
 
-    @GetMapping()
-    public ResponseEntity<List<ProductDTO>> getByBiggestPrice() {
-        return new ResponseEntity<>(service.getByBiggestPrice(), HttpStatus.OK);
+        if(order.isEmpty() && category.isEmpty() && freeShipping.isEmpty() && prestige.isEmpty())
+            return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
+
+        return new ResponseEntity<>(service.getFiltered(category, freeShipping, order, prestige), HttpStatus.OK);
     }
 }
