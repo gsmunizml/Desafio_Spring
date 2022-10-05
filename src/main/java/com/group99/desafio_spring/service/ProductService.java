@@ -58,6 +58,12 @@ public class ProductService implements IProduct {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ProductDTO> addProductList(List<Product> products) {
+        repo.addProductList(products);
+        return products.stream().map(ProductDTO::new).collect(Collectors.toList());
+    }
+
     private List<Product> orderByLowestPrice(List<Product> products) {
         return products.stream()
                 .sorted((p1, p2) -> p1.getPrice().intValue() - p2.getPrice().intValue())
