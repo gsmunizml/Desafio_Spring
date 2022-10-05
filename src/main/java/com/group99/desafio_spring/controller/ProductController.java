@@ -1,5 +1,6 @@
 package com.group99.desafio_spring.controller;
 
+import com.group99.desafio_spring.dto.ProductDTO;
 import com.group99.desafio_spring.inteface.IProduct;
 import com.group99.desafio_spring.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class ProductController {
     private IProduct service;
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAll(){
+    public ResponseEntity<List<ProductDTO>> getAll(){
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 }

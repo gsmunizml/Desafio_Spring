@@ -5,6 +5,7 @@ import com.group99.desafio_spring.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class ProductRepo {
         try {
             products = Arrays.asList(mapper.readValue(new File(pathFile), Product[].class));
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+
         }
         return products;
     }
