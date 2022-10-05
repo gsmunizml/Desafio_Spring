@@ -33,6 +33,10 @@ public class ProductService implements IProduct {
            products = orderByCategoryShipping(products, category.get(), freeShipping.get());
         }
 
+        if (freeShipping.isPresent() && prestige.isPresent()) {
+           products = orderByShippingPrestige(products, freeShipping.get(), prestige.get());
+        }
+
         if(!order.isEmpty()){
             switch (order.get().intValue()){
                 case 0:
@@ -78,6 +82,12 @@ public class ProductService implements IProduct {
     private List<Product> orderByCategoryShipping(List<Product> products, String category, boolean shipping) {
         return products.stream()
                 .filter(p -> p.getCategory().equals(category) && shipping == p.isFreeShipping())
+                .collect(Collectors.toList());
+    }
+
+    private List<Product> orderByShippingPrestige(List<Product> products, boolean shipping, String prestige) {
+        return products.stream()
+                .filter(p -> shipping == p.isFreeShipping() && p.getPrestige().equals(prestige))
                 .collect(Collectors.toList());
     }
 }
