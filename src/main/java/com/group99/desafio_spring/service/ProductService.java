@@ -36,6 +36,8 @@ public class ProductService implements IProduct {
                     return orderByAlphabeticReverse(products);
                 case 2:
                     return orderByBiggestPrice(products);
+                case 3:
+                    return orderByLowestPrice(products);
             }
         }
 
@@ -53,6 +55,12 @@ public class ProductService implements IProduct {
     private List<Product> orderByBiggestPrice(List<Product> products) {
         return products.stream()
                 .sorted((p1, p2) -> p2.getPrice().intValue() - p1.getPrice().intValue())
+                .collect(Collectors.toList());
+    }
+
+    private List<Product> orderByLowestPrice(List<Product> products) {
+        return products.stream()
+                .sorted((p1, p2) -> p1.getPrice().intValue() - p2.getPrice().intValue())
                 .collect(Collectors.toList());
     }
 }
