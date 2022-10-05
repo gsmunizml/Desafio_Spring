@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -61,6 +62,12 @@ public class ProductService implements IProduct {
     private List<Product> orderByLowestPrice(List<Product> products) {
         return products.stream()
                 .sorted((p1, p2) -> p1.getPrice().intValue() - p2.getPrice().intValue())
+                .collect(Collectors.toList());
+    }
+
+    private List<Product> orderByCategoryShipping(List<Product> products, String cateogry, boolean shipping) {
+        return products.stream()
+                .filter(p -> p.getCategory() == cateogry && shipping)
                 .collect(Collectors.toList());
     }
 }
