@@ -29,6 +29,10 @@ public class ProductService implements IProduct {
     public List<Product> getFiltered(Optional<String> category, Optional<Boolean> freeShipping, Optional<Integer> order, Optional<String> prestige){
         List<Product> products = repo.getAll(); // adicionar filtro
 
+        if(category.isPresent()){
+            products = this.filterProductByCategory(category.get(),products);
+        }
+
         if (category.isPresent() && freeShipping.isPresent()) {
            products = orderByCategoryShipping(products, category.get(), freeShipping.get());
         }
@@ -88,6 +92,12 @@ public class ProductService implements IProduct {
     private List<Product> orderByShippingPrestige(List<Product> products, boolean shipping, String prestige) {
         return products.stream()
                 .filter(p -> shipping == p.isFreeShipping() && p.getPrestige().equals(prestige))
+                .collect(Collectors.toList());
+    }
+
+    private List<Product> filterProductByCategory(String category, List<Product> products) {
+        return products.stream()
+                .filter(p-> p.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
     }
 }
