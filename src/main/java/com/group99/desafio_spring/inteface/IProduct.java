@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IProduct {
     List<ProductDTO> getAll();
+    List<ProductDTO> getByBiggestPrice();
 }

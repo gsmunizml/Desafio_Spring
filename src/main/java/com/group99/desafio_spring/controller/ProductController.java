@@ -19,8 +19,13 @@ public class ProductController {
     @Autowired
     private IProduct service;
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<ProductDTO>> getAll(){
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ProductDTO>> getByBiggestPrice() {
+        return new ResponseEntity<>(service.getByBiggestPrice(), HttpStatus.OK);
     }
 }

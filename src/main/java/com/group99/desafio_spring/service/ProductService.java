@@ -19,4 +19,12 @@ public class ProductService implements IProduct {
     public List<ProductDTO> getAll() {
         return repo.getAll().stream().map(ProductDTO::new).collect(Collectors.toList());
     }
+
+    @Override
+    public List<ProductDTO> getByBiggestPrice() {
+        return repo.getAll().stream()
+                .sorted((p1, p2) -> p1.getPrice().intValue() - p2.getPrice().intValue())
+                .map(ProductDTO::new)
+                .collect(Collectors.toList());
+    }
 }
