@@ -22,7 +22,7 @@ public class ProductController {
     private IProduct service;
 
     @GetMapping("/articles")
-    public ResponseEntity<List<ProductDTO>> getList(@RequestParam Optional<String> category,
+    public ResponseEntity<List<Product>> getList(@RequestParam Optional<String> category,
                                                     @RequestParam Optional<Boolean> freeShipping,
                                                     @RequestParam Optional<Integer> order,
                                                     @RequestParam Optional<String> prestige){

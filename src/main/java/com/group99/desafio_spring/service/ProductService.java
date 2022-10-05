@@ -20,12 +20,12 @@ public class ProductService implements IProduct {
     private ProductRepo repo;
 
     @Override
-    public List<ProductDTO> getAll() {
-        return repo.getAll().stream().map(ProductDTO::new).collect(Collectors.toList());
+    public List<Product> getAll() {
+        return repo.getAll().stream().collect(Collectors.toList());
     }
 
     @Override
-    public List<ProductDTO> getFiltered(Optional<String> category, Optional<Boolean> freeShipping, Optional<Integer> order, Optional<String> prestige){
+    public List<Product> getFiltered(Optional<String> category, Optional<Boolean> freeShipping, Optional<Integer> order, Optional<String> prestige){
         List<Product> products = repo.getAll(); // adicionar filtro
 
         if(!order.isEmpty()){
@@ -34,17 +34,25 @@ public class ProductService implements IProduct {
                     return orderByAlphabeticNormal(products);
                 case 1:
                     return orderByAlphabeticReverse(products);
+                case 2:
+                    return orderByBiggestPrice(products);
             }
         }
 
-        return products.stream().map(ProductDTO::new).collect(Collectors.toList());
+        return products.stream().collect(Collectors.toList());
     }
 
-    private List<ProductDTO> orderByAlphabeticNormal(List<Product> products){
-        return products.stream().sorted(Comparator.comparing(Product::getName)).map(ProductDTO::new).collect(Collectors.toList());
+    private List<Product> orderByAlphabeticNormal(List<Product> products){
+        return products.stream().sorted(Comparator.comparing(Product::getName)).collect(Collectors.toList());
     }
 
-    private List<ProductDTO> orderByAlphabeticReverse(List<Product> products){
-        return products.stream().sorted(Comparator.comparing(Product::getName).reversed()).map(ProductDTO::new).collect(Collectors.toList());
+    private List<Product> orderByAlphabeticReverse(List<Product> products){
+        return products.stream().sorted(Comparator.comparing(Product::getName).reversed()).collect(Collectors.toList());
+    }
+
+    private List<Product> orderByBiggestPrice(List<Product> products) {
+        return products.stream()
+                .sorted((p1, p2) -> p2.getPrice().intValue() - p1.getPrice().intValue())
+                .collect(Collectors.toList());
     }
 }
