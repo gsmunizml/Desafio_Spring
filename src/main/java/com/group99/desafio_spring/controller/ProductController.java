@@ -36,9 +36,4 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> addProductList(@RequestBody List<Product> products) {
         return new ResponseEntity<>(service.addProductList(products), HttpStatus.CREATED);
     }
-
-//    @PostMapping("/purchase-request")
-//    public ResponseEntity<PurchaseTicket> purchaseRequest(@RequestBody List<PurchaseRequestItem> purchaseRequestItems){
-//        return new ResponseEntity<>(service.purchaseRequest(purchaseRequestItems), HttpStatus.CREATED);
-//    }
 }
