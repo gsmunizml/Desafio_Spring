@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public class ClientRepo {
     private final String pathFile = "src/main/resources/clients.json";
-
     ObjectMapper mapper = new ObjectMapper();
 
     public List<Client> getAll(){
@@ -30,9 +29,8 @@ public class ClientRepo {
     public void addClient(Client client) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
-        List<Client> clients = this.getAll();
+        List<Client> clients = new ArrayList<>();
 
-        clients = new ArrayList<>(clients);
         clients.add(client);
 
         try {

@@ -7,13 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/api/v1")
 public class ClientController {
 
     @Autowired
     private IClient service;
 
-    @PostMapping
+    @PostMapping("/clients")
     @ResponseStatus(HttpStatus.CREATED)
     public void addClient(@RequestBody Client client) {
         service.addClient(client);
