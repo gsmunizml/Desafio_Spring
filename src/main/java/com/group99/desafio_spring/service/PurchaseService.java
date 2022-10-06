@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PurchaseService implements IPurchase {
@@ -49,6 +50,8 @@ public class PurchaseService implements IPurchase {
 
             if(product.isEmpty())
                 throw new NotFoundException("Produto do Id: " + purchaseItem.getProductId() + " não encontrado");
+
+            product.get().setQuantity(product.get().getQuantity() - purchaseItem.getQuantity());
 
             products.add(product.get());
         }
