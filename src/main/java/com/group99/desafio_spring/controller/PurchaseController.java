@@ -17,6 +17,12 @@ public class PurchaseController {
     @Autowired
     private IPurchase service;
 
+
+    /**
+     * Método responsavel pela criação do pedido de compra
+     * @param purchaseRequestItems lista de itens do pedido de compra, composto pelo Id do produto e sua quantidade
+     * @return retorna um ResponseEntity com o ticket criado para o pedido de compra e o respectivo status da operação
+     */
     @PostMapping("/purchase-request")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<PurchaseTicket> purchaseRequest(@RequestBody List<PurchaseRequestItem> purchaseRequestItems){
