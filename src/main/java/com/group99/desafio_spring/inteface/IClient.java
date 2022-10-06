@@ -9,4 +9,6 @@ public interface IClient {
 
     List<Client> getAllClient();
 
+
+    List<Client> getClientsByState(String state);
 }

@@ -20,4 +20,8 @@ public class ClientService implements IClient {
     }
 
     public List<Client> getAllClient() { return repo.getAll(); }
+
+    public List<Client> getClientsByState(String state) {
+        return repo.getClientsByState(state);
+    }
 }

@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ClientRepo {
@@ -37,5 +38,13 @@ public class ClientRepo {
         } catch (Exception ex) {
 
         }
+    }
+
+    public List<Client> getClientsByState(String state) {
+        List<Client> clientList = this.getAll();
+
+        return clientList.stream()
+                .filter((client) -> client.getAddress().getState().equals(state))
+                .collect(Collectors.toList());
     }
 }
