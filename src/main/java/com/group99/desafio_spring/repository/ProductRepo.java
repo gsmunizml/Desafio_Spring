@@ -3,6 +3,8 @@ package com.group99.desafio_spring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.group99.desafio_spring.dto.ProductDTO;
+import com.group99.desafio_spring.exceptions.IdAlreadyRegisteredException;
 import com.group99.desafio_spring.model.Product;
 import com.group99.desafio_spring.model.PurchaseRequestItem;
 import com.group99.desafio_spring.model.PurchaseTicket;
@@ -40,7 +42,6 @@ public class ProductRepo {
     public void addProductList(List<Product> productList) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         List<Product> products = new ArrayList<>(this.getAll());
-
         products.addAll(productList);
 
         try {
