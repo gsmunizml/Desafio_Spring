@@ -1,13 +1,13 @@
 [
   {
     "id": 1,
-    "name": "Maria da Silva",
-    "birthDate": "2022-10-06 10:08:35",
-    "email": "cliente@email.com",
-    "address": {
-      "street": "Alameda Santo Angelo, 501",
-      "city": "Mogi das Cruzes",
-      "state": "SP"
+    "name" : "teste",
+    "birthDate" : "22/09/1999",
+    "email" : "teste@email.com",
+    "address" : {
+      "street" : "rua is dez",
+      "city" : "teste",
+      "state" : "SP2"
     }
   }
 ]

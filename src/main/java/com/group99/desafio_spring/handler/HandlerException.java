@@ -3,6 +3,7 @@ package com.group99.desafio_spring.handler;
 import com.group99.desafio_spring.exceptions.ExceptionDetails;
 import com.group99.desafio_spring.exceptions.IdAlreadyRegisteredException;
 import com.group99.desafio_spring.exceptions.NotFoundException;
+import com.group99.desafio_spring.exceptions.ReadFileExpection;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,9 +14,11 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class HandlerException {
 
+    private ExceptionDetails exceptionDetails;
+
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ExceptionDetails> notFoundException(NotFoundException error) {
-        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+         exceptionDetails = ExceptionDetails.builder()
                 .title("NOT FOUND")
                 .message(error.getMessage())
                 .timeStamp(LocalDateTime.now())
@@ -25,11 +28,20 @@ public class HandlerException {
 
     @ExceptionHandler(IdAlreadyRegisteredException.class)
     public ResponseEntity<ExceptionDetails> idAlreadyRegisteredException(IdAlreadyRegisteredException error) {
-        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+         exceptionDetails = ExceptionDetails.builder()
                 .title("BAD REQUEST")
                 .message(error.getMessage())
                 .timeStamp(LocalDateTime.now())
                 .build();
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(ReadFileExpection.class)
+    public ResponseEntity<ExceptionDetails> readFileException(ReadFileExpection error) {
+         exceptionDetails = ExceptionDetails.builder()
+                .title("BAD REQUEST READ FILE")
+                .message(error.getMessage())
+                .timeStamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.REQUEST_TIMEOUT);
     }
 }
