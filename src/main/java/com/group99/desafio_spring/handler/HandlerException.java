@@ -3,7 +3,7 @@ package com.group99.desafio_spring.handler;
 import com.group99.desafio_spring.exceptions.ExceptionDetails;
 import com.group99.desafio_spring.exceptions.IdAlreadyRegisteredException;
 import com.group99.desafio_spring.exceptions.NotFoundException;
-import com.group99.desafio_spring.exceptions.ReadFileExpection;
+import com.group99.desafio_spring.exceptions.ReadFileException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,8 +35,8 @@ public class HandlerException {
                 .build();
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(ReadFileExpection.class)
-    public ResponseEntity<ExceptionDetails> readFileException(ReadFileExpection error) {
+    @ExceptionHandler(ReadFileException.class)
+    public ResponseEntity<ExceptionDetails> readFileException(ReadFileException error) {
          exceptionDetails = ExceptionDetails.builder()
                 .title("BAD REQUEST READ FILE")
                 .message(error.getMessage())

@@ -3,6 +3,7 @@ package com.group99.desafio_spring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.group99.desafio_spring.exceptions.ReadFileException;
 import com.group99.desafio_spring.inteface.IPurchaseRepo;
 import com.group99.desafio_spring.model.PurchaseTicket;
 import com.group99.desafio_spring.util.TicketIdGenerator;
@@ -29,8 +30,9 @@ public class PurchaseRepo implements IPurchaseRepo {
         try {
             tickets = Arrays.asList(mapper.readValue(new File(ticketPathFile), PurchaseTicket[].class));
         } catch (Exception ex) {
-
+            throw new ReadFileException(ex.getMessage());
         }
+
         return tickets;
     }
 
@@ -40,9 +42,9 @@ public class PurchaseRepo implements IPurchaseRepo {
 
         ticket.setId(ticketIdGenerator.getNext());
         tickets.add(ticket);
+
         try {
             writer.writeValue(new File(ticketPathFile), tickets);
-
             return ticket;
         } catch (Exception ex) { }
 

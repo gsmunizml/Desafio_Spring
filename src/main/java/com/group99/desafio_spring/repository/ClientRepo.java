@@ -3,8 +3,7 @@ package com.group99.desafio_spring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.group99.desafio_spring.exceptions.ReadFileExpection;
+import com.group99.desafio_spring.exceptions.ReadFileException;
 import com.group99.desafio_spring.model.Client;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +25,7 @@ public class ClientRepo {
         try {
             clientsList = Arrays.asList(mapper.readValue(new File(pathFile), Client[].class));
         } catch (Exception error) {
-            throw new ReadFileExpection(error.getMessage());
+            throw new ReadFileException(error.getMessage());
         }
 
         return clientsList;
