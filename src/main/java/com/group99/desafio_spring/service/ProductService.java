@@ -27,7 +27,7 @@ public class ProductService implements IProduct {
 
     @Override
     public List<Product> getFiltered(Optional<String> category, Optional<Boolean> freeShipping, Optional<Integer> order, Optional<String> prestige){
-        List<Product> products = repo.getAll(); // adicionar filtro
+        List<Product> products = repo.getAll();
 
         if(category.isPresent()){
             products = this.filterProductByCategory(category.get(),products);
@@ -56,6 +56,12 @@ public class ProductService implements IProduct {
 
         return products;
     }
+    
+    @Override
+    public List<ProductDTO> addProductList(List<Product> products) {
+        repo.addProductList(products);
+        return products.stream().map(ProductDTO::new).collect(Collectors.toList());
+    }
 
     private List<Product> orderByAlphabeticNormal(List<Product> products){
         return products.stream().sorted(Comparator.comparing(Product::getName)).collect(Collectors.toList());
@@ -69,12 +75,6 @@ public class ProductService implements IProduct {
         return products.stream()
                 .sorted((p1, p2) -> p2.getPrice().intValue() - p1.getPrice().intValue())
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ProductDTO> addProductList(List<Product> products) {
-        repo.addProductList(products);
-        return products.stream().map(ProductDTO::new).collect(Collectors.toList());
     }
 
     private List<Product> orderByLowestPrice(List<Product> products) {
