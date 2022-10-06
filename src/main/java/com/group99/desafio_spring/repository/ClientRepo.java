@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.group99.desafio_spring.exceptions.ReadFileException;
+import com.group99.desafio_spring.exceptions.WriteFileException;
 import com.group99.desafio_spring.model.Client;
 import org.springframework.stereotype.Repository;
 
@@ -45,7 +46,7 @@ public class ClientRepo {
         try {
             writer.writeValue(new File(pathFile), clients);
         } catch (Exception ex) {
-
+            throw new WriteFileException(ex.getMessage());
         }
     }
 

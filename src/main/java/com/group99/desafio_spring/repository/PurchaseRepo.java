@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.group99.desafio_spring.exceptions.ReadFileException;
+import com.group99.desafio_spring.exceptions.WriteFileException;
 import com.group99.desafio_spring.inteface.IPurchaseRepo;
 import com.group99.desafio_spring.model.PurchaseTicket;
 import com.group99.desafio_spring.util.TicketIdGenerator;
@@ -46,8 +47,8 @@ public class PurchaseRepo implements IPurchaseRepo {
         try {
             writer.writeValue(new File(ticketPathFile), tickets);
             return ticket;
-        } catch (Exception ex) { }
-
-        return null;
+        } catch (Exception ex) {
+            throw new WriteFileException(ex.getMessage());
+        }
     }
 }
