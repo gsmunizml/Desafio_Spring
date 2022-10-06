@@ -19,7 +19,7 @@ public class PurchaseController {
 
 
     /**
-     * Método responsavel pela criação do pedido de compra
+     * Método responsável pela criação do pedido de compra
      * @param purchaseRequestItems lista de itens do pedido de compra, composto pelo Id do produto e sua quantidade
      * @return retorna um ResponseEntity com o ticket criado para o pedido de compra e o respectivo status da operação
      */
