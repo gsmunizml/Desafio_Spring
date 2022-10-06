@@ -36,6 +36,12 @@ public class ProductService implements IProduct {
         return filterProducts(products, filter);
     }
 
+    /**
+     * Método responsavel por verificar quais filtros serão aplicados na listagem de produtos e aplicar os mesmos.
+     * @param products Lista de produtos
+     * @param filter Objeto com os parametros do filtro
+     * @return Lista de Produtos
+     */
     private List<Product> filterProducts(List<Product> products, ProductFilterParam filter){
         if(filter.getCategory() != null)
             products = this.filterProductByCategory(filter.getCategory(), products);
@@ -52,6 +58,12 @@ public class ProductService implements IProduct {
         return products;
     }
 
+    /**
+     * Métodos responsavel por verificar qual ordenação aplicar
+     * @param products lista de produtos
+     * @param order numero responsavel pela ordenação
+     * @return Lista de Produtos
+     */
     private List<Product> sortProducts(List<Product> products, int order){
             switch (order){
                 case 0:
