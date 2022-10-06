@@ -3,6 +3,7 @@ package com.group99.desafio_spring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+
 import com.group99.desafio_spring.exceptions.IdAlreadyRegisteredException;
 import com.group99.desafio_spring.exceptions.ReadFileException;
 import com.group99.desafio_spring.exceptions.WriteFileException;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductRepo {
@@ -35,6 +37,23 @@ public class ProductRepo {
         }
 
         return products;
+    }
+
+    public Optional<Product> getProductById(int id) {
+        List<Product> products = null;
+
+        try {
+            products = Arrays.asList(mapper.readValue(new File(productsPathFile), Product[].class));
+        } catch (Exception ex) {
+
+        }
+
+        for(Product p: products) {
+            if(Integer.compare(p.getProductId(), id) == 0)
+                return Optional.of(p);
+        }
+
+        return Optional.empty();
     }
 
     public void addProductList(List<Product> productList) {

@@ -24,6 +24,11 @@ public class PurchaseRepo implements IPurchaseRepo {
     public PurchaseRepo(){
         ticketIdGenerator = TicketIdGenerator.getInstance();
     }
+
+    /**
+     * Método criado para buscar toda a lista de pedidos de compra
+     * @return Retorna todos os tickets de pedidos de compras
+     */
     @Override
     public List<PurchaseTicket> getAll() {
         List<PurchaseTicket> tickets = null;
@@ -37,6 +42,11 @@ public class PurchaseRepo implements IPurchaseRepo {
         return tickets;
     }
 
+    /**
+     * Método para criação do pedido de compra e atribuição do seu Id
+     * @param ticket modelo do ticket do pedido de compra, já com a listagem de produtos e o total do pedido
+     * @return retorna o ticket criado para o pedido de compra
+     */
     public PurchaseTicket purchaseRequest(PurchaseTicket ticket) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         List<PurchaseTicket> tickets = new ArrayList<>(this.getAll());
