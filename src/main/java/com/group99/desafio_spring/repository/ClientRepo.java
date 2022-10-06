@@ -3,6 +3,7 @@ package com.group99.desafio_spring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.group99.desafio_spring.exceptions.ReadFileExpection;
 import com.group99.desafio_spring.model.Client;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,9 @@ public class ClientRepo {
     ObjectMapper mapper = new ObjectMapper();
 
     public List<Client> getAll() {
+        mapper.findAndRegisterModules();
         List<Client> clientsList;
+
         try {
             clientsList = Arrays.asList(mapper.readValue(new File(pathFile), Client[].class));
         } catch (Exception error) {
@@ -29,9 +32,16 @@ public class ClientRepo {
         return clientsList;
     }
     public void addClient(Client client) {
+        mapper.findAndRegisterModules();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         List<Client> clients = new ArrayList<>(this.getAll());
-        clients.add(client);
+
+        Client newClient = new Client(client.getName(),
+                client.getBirthDate(),
+                client.getEmail(),
+                client.getAddress());
+
+        clients.add(newClient);
 
         try {
             writer.writeValue(new File(pathFile), clients);
@@ -44,7 +54,7 @@ public class ClientRepo {
         List<Client> clientList = this.getAll();
 
         return clientList.stream()
-                .filter((client) -> client.getAddress().getState().equals(state))
+                .filter((client) -> client.getAddress().getState().equalsIgnoreCase(state))
                 .collect(Collectors.toList());
     }
 }
