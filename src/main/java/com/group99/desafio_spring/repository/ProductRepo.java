@@ -23,6 +23,10 @@ public class ProductRepo {
         ticketIdGenerator = TicketIdGenerator.getInstance();
     }
 
+    /**
+     * Método responsável por retornar uma lista de produtos
+     * @return List<Product>
+     */
     public List<Product> getAll(){
         List<Product> products = null;
 
@@ -34,6 +38,11 @@ public class ProductRepo {
         return products;
     }
 
+    /**
+     * Método responsável por buscar um produto conforme o "id"
+     * @param id - identificador do produto
+     * @return Optional<Product>
+     */
     public Optional<Product> getProductById(int id) {
         List<Product> products = null;
 
@@ -51,6 +60,10 @@ public class ProductRepo {
         return Optional.empty();
     }
 
+    /**
+     * Método responsável por adicionar uma lista de produtos
+     * @param productList - Produtos([{"productId","name","category","brand":,"price","quantity","freeShipping","prestige"}])
+     */
     public void addProductList(List<Product> productList) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         List<Product> products = new ArrayList<>(this.getAll());
