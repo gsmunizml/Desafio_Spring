@@ -3,6 +3,10 @@ package com.group99.desafio_spring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+
+import com.group99.desafio_spring.exceptions.IdAlreadyRegisteredException;
+import com.group99.desafio_spring.exceptions.ReadFileException;
+import com.group99.desafio_spring.exceptions.WriteFileException;
 import com.group99.desafio_spring.model.Product;
 import com.group99.desafio_spring.util.TicketIdGenerator;
 import org.springframework.stereotype.Repository;
@@ -29,8 +33,9 @@ public class ProductRepo {
         try {
             products = Arrays.asList(mapper.readValue(new File(productsPathFile), Product[].class));
         } catch (Exception ex) {
-
+            throw new ReadFileException(ex.getMessage());
         }
+
         return products;
     }
 
@@ -53,13 +58,22 @@ public class ProductRepo {
 
     public void addProductList(List<Product> productList) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
-        List<Product> products = new ArrayList<>(this.getAll());
-        products.addAll(productList);
+        List<Product> savedProducts = new ArrayList<>(this.getAll());
+
+        productList.forEach((product) -> {
+            savedProducts.forEach((savedProduct) -> {
+                if (savedProduct.getProductId() == product.getProductId()) {
+                    throw new IdAlreadyRegisteredException("O id: " + product.getProductId() + " já está cadastrado.");
+                }
+            });
+        });
+
+        savedProducts.addAll(productList);
 
         try {
-            writer.writeValue(new File(productsPathFile), products);
+            writer.writeValue(new File(productsPathFile), savedProducts);
         } catch (Exception ex) {
-
+            throw new WriteFileException(ex.getMessage());
         }
     }
 }
