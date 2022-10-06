@@ -1,11 +1,13 @@
-[ {
-  "id" : 0,
-  "name" : "teste2",
-  "birthDate" : "2022-10-06",
-  "email" : "teste2@email.com",
-  "address" : {
-    "street" : "rua rua",
-    "city" : "teste2",
-    "state" : "SP2"
+[
+  {
+    "id": 1,
+    "name" : "teste",
+    "birthDate" : "22/09/1999",
+    "email" : "teste@email.com",
+    "address" : {
+      "street" : "rua is dez",
+      "city" : "teste",
+      "state" : "SP2"
+    }
   }
-} ]
+]

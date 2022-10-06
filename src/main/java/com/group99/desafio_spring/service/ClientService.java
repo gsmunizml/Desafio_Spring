@@ -6,6 +6,8 @@ import com.group99.desafio_spring.repository.ClientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClientService implements IClient {
 
@@ -16,4 +18,6 @@ public class ClientService implements IClient {
     public void addClient(Client client) {
         repo.addClient(client);
     }
+
+    public List<Client> getAllClient() { return repo.getAll(); }
 }
