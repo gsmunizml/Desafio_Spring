@@ -19,6 +19,10 @@ public class ClientRepo {
     private final String pathFile = "src/main/resources/clients.json";
     ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * Método responsável por retornar uma lista de clientes
+     * @return List<Client>
+     */
     public List<Client> getAll() {
         mapper.findAndRegisterModules();
         List<Client> clientsList;
@@ -31,6 +35,11 @@ public class ClientRepo {
 
         return clientsList;
     }
+
+    /**
+     * Método responsável por adicionar um cliente
+     * @param client- Cliente - {"nome","data-de-nascimento", "email", "endereço"}
+     */
     public void addClient(Client client) {
         mapper.findAndRegisterModules();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
@@ -50,6 +59,11 @@ public class ClientRepo {
         }
     }
 
+    /**
+     * Método responsável por filtrar clientes conforme o estado
+     * @param state - Estado(ex: "SP")
+     * @return List<Client>
+     */
     public List<Client> getClientsByState(String state) {
         List<Client> clientList = this.getAll();
 
