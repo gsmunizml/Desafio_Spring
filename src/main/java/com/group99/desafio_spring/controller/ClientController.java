@@ -27,5 +27,8 @@ public class ClientController {
         return new ResponseEntity<>(service.getAllClient(), HttpStatus.OK);
     }
 
-
+    @GetMapping(params={"state"})
+    public ResponseEntity<List<Client>> getClientsByState(@RequestParam String state) {
+        return new ResponseEntity<>( service.getClientsByState(state), HttpStatus.OK);
+    }
 }

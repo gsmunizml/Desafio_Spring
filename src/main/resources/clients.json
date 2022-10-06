@@ -1,13 +1,1 @@
-[
-  {
-    "id": 1,
-    "name" : "teste",
-    "birthDate" : "22/09/1999",
-    "email" : "teste@email.com",
-    "address" : {
-      "street" : "rua is dez",
-      "city" : "teste",
-      "state" : "SP2"
-    }
-  }
-]
+[]
