@@ -3,6 +3,8 @@ package com.group99.desafio_spring.service;
 import com.group99.desafio_spring.dto.ProductDTO;
 import com.group99.desafio_spring.inteface.IProduct;
 import com.group99.desafio_spring.model.Product;
+import com.group99.desafio_spring.model.PurchaseRequestItem;
+import com.group99.desafio_spring.model.PurchaseTicket;
 import com.group99.desafio_spring.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
