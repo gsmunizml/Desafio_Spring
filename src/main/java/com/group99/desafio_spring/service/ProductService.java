@@ -3,6 +3,7 @@ package com.group99.desafio_spring.service;
 import com.group99.desafio_spring.dto.ProductDTO;
 import com.group99.desafio_spring.inteface.IProduct;
 import com.group99.desafio_spring.model.Product;
+import com.group99.desafio_spring.model.ProductFilterParam;
 import com.group99.desafio_spring.model.PurchaseRequestItem;
 import com.group99.desafio_spring.model.PurchaseTicket;
 import com.group99.desafio_spring.repository.ProductRepo;
@@ -23,28 +24,32 @@ public class ProductService implements IProduct {
     private ProductRepo repo;
 
     @Override
-    public List<Product> getAll() {
-        return repo.getAll().stream().collect(Collectors.toList());
+    public List<Product> getList(ProductFilterParam filter){
+        List<Product> products = repo.getAll();
+        if (!filter.hasFilterParam() && !filter.hasOrderParam())
+            return products;
+
+        return filterProducts(products, filter);
     }
 
-    @Override
-    public List<Product> getFiltered(Optional<String> category, Optional<Boolean> freeShipping, Optional<Integer> order, Optional<String> prestige){
-        List<Product> products = repo.getAll();
+    private List<Product> filterProducts(List<Product> products, ProductFilterParam filter){
+        if(filter.getCategory() != null)
+            products = this.filterProductByCategory(filter.getCategory(), products);
 
-        if(category.isPresent()){
-            products = this.filterProductByCategory(category.get(),products);
-        }
+        if (filter.getCategory() != null && filter.getFreeShipping() != null)
+            products = orderByCategoryShipping(products, filter.getCategory(), filter.getFreeShipping().booleanValue());
 
-        if (category.isPresent() && freeShipping.isPresent()) {
-           products = orderByCategoryShipping(products, category.get(), freeShipping.get());
-        }
+        if (filter.getFreeShipping() != null && filter.getPrestige() != null)
+            products = orderByShippingPrestige(products, filter.getFreeShipping().booleanValue(), filter.getPrestige());
 
-        if (freeShipping.isPresent() && prestige.isPresent()) {
-           products = orderByShippingPrestige(products, freeShipping.get(), prestige.get());
-        }
+        if (filter.getOrder() != null)
+            return sortProducts(products, filter.getOrder().intValue());
 
-        if(!order.isEmpty()){
-            switch (order.get().intValue()){
+        return products;
+    }
+
+    private List<Product> sortProducts(List<Product> products, int order){
+            switch (order){
                 case 0:
                     return orderByAlphabeticNormal(products);
                 case 1:
@@ -54,7 +59,6 @@ public class ProductService implements IProduct {
                 case 3:
                     return orderByLowestPrice(products);
             }
-        }
 
         return products;
     }
