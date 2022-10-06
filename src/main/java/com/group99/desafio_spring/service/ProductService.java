@@ -61,11 +61,6 @@ public class ProductService implements IProduct {
         return products.stream().map(ProductDTO::new).collect(Collectors.toList());
     }
 
-    @Override
-    public PurchaseTicket purchaseRequest(List<PurchaseRequestItem> purchaseRequestItems){
-        return  repo.purchaseRequest(purchaseRequestItems);
-    }
-
     private List<Product> orderByAlphabeticNormal(List<Product> products){
         return products.stream().sorted(Comparator.comparing(Product::getName)).collect(Collectors.toList());
     }

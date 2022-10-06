@@ -14,8 +14,7 @@ public class PurchaseTicket {
     private List<Product> articles;
     private double total;
 
-    public PurchaseTicket(int id, List<Product> articles) {
-        this.id = id;
+    public PurchaseTicket(List<Product> articles) {
         this.articles = articles;
     }
 
