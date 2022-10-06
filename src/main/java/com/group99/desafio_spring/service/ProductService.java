@@ -3,6 +3,8 @@ package com.group99.desafio_spring.service;
 import com.group99.desafio_spring.dto.ProductDTO;
 import com.group99.desafio_spring.inteface.IProduct;
 import com.group99.desafio_spring.model.Product;
+import com.group99.desafio_spring.model.PurchaseRequestItem;
+import com.group99.desafio_spring.model.PurchaseTicket;
 import com.group99.desafio_spring.repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,17 @@ public class ProductService implements IProduct {
         return products;
     }
 
+    @Override
+    public List<ProductDTO> addProductList(List<Product> products) {
+        repo.addProductList(products);
+        return products.stream().map(ProductDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public PurchaseTicket purchaseRequest(List<PurchaseRequestItem> purchaseRequestItems){
+        return  repo.purchaseRequest(purchaseRequestItems);
+    }
+
     private List<Product> orderByAlphabeticNormal(List<Product> products){
         return products.stream().sorted(Comparator.comparing(Product::getName)).collect(Collectors.toList());
     }
@@ -65,12 +78,6 @@ public class ProductService implements IProduct {
         return products.stream()
                 .sorted((p1, p2) -> p2.getPrice().intValue() - p1.getPrice().intValue())
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ProductDTO> addProductList(List<Product> products) {
-        repo.addProductList(products);
-        return products.stream().map(ProductDTO::new).collect(Collectors.toList());
     }
 
     private List<Product> orderByLowestPrice(List<Product> products) {
