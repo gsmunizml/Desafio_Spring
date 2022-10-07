@@ -26,4 +26,13 @@ public class PurchaseTicket {
             total += product.getPrice() * purchaseRequestItem.getQuantity();
         }
     }
+
+    @Override
+    public String toString() {
+        return "PurchaseTicket{" +
+                "id=" + id +
+                ", articles=" + articles +
+                ", total=" + total +
+                '}';
+    }
 }

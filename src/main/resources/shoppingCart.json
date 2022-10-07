@@ -1,0 +1,121 @@
+[ {
+  "id" : 1,
+  "purchaseTicketList" : [ {
+    "id" : 1,
+    "articles" : [ {
+      "productId" : 1,
+      "name" : "Bola",
+      "category" : "Esportes",
+      "brand" : "FIFA",
+      "price" : 250.0,
+      "quantity" : 2,
+      "freeShipping" : false,
+      "prestige" : ""
+    } ],
+    "total" : 10.0
+  }, {
+    "id" : 1,
+    "articles" : [ {
+      "productId" : 1,
+      "name" : "Chuteira",
+      "category" : "Calçados",
+      "brand" : "ADIDAS",
+      "price" : 1000.0,
+      "quantity" : 3,
+      "freeShipping" : true,
+      "prestige" : ""
+    } ],
+    "total" : 10.0
+  }, {
+    "id" : 4,
+    "articles" : [ {
+      "productId" : 10,
+      "name" : "Camera",
+      "category" : "Eletronicos",
+      "brand" : "TECHPIX",
+      "price" : 683.99,
+      "quantity" : 1,
+      "freeShipping" : true,
+      "prestige" : ""
+    } ],
+    "total" : 10.0
+  }, {
+    "id" : 1,
+    "articles" : [ {
+      "productId" : 1,
+      "name" : "Chuteira",
+      "category" : "Calçados",
+      "brand" : "ADIDAS",
+      "price" : 1000.0,
+      "quantity" : 3,
+      "freeShipping" : true,
+      "prestige" : ""
+    } ],
+    "total" : 10.0
+  }, {
+    "id" : 4,
+    "articles" : [ {
+      "productId" : 10,
+      "name" : "Camera",
+      "category" : "Eletronicos",
+      "brand" : "TECHPIX",
+      "price" : 683.99,
+      "quantity" : 1,
+      "freeShipping" : true,
+      "prestige" : ""
+    } ],
+    "total" : 10.0
+  } ],
+  "totalShopingCart" : 50.0
+}, {
+  "id" : 2,
+  "purchaseTicketList" : [ {
+    "id" : 1,
+    "articles" : [ {
+      "productId" : 1,
+      "name" : "Bola",
+      "category" : "Esportes",
+      "brand" : "FIFA",
+      "price" : 250.0,
+      "quantity" : 2,
+      "freeShipping" : false,
+      "prestige" : ""
+    } ],
+    "total" : 10.0
+  } ],
+  "totalShopingCart" : 10.0
+}, {
+  "id" : 3,
+  "purchaseTicketList" : [ {
+    "id" : 1,
+    "articles" : [ {
+      "productId" : 1,
+      "name" : "Bola",
+      "category" : "Esportes",
+      "brand" : "FIFA",
+      "price" : 250.0,
+      "quantity" : 2,
+      "freeShipping" : false,
+      "prestige" : ""
+    } ],
+    "total" : 10.0
+  } ],
+  "totalShopingCart" : 10.0
+}, {
+  "id" : 4,
+  "purchaseTicketList" : [ {
+    "id" : 1,
+    "articles" : [ {
+      "productId" : 1,
+      "name" : "Bola",
+      "category" : "Esportes",
+      "brand" : "FIFA",
+      "price" : 250.0,
+      "quantity" : 2,
+      "freeShipping" : false,
+      "prestige" : ""
+    } ],
+    "total" : 10.0
+  } ],
+  "totalShopingCart" : 10.0
+} ]
