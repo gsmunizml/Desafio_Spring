@@ -51,4 +51,14 @@ public class HandlerException {
                 .build();
         return new ResponseEntity<>(exceptionDetails, HttpStatus.REQUEST_TIMEOUT);
     }
+
+    @ExceptionHandler(NoProductsException.class)
+    public ResponseEntity<ExceptionDetails> noProductsException(NoProductsException error) {
+        exceptionDetails = ExceptionDetails.builder()
+                .title("BAD REQUEST")
+                .message(error.getMessage())
+                .timeStamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
 }

@@ -30,6 +30,7 @@ public class ProductRepo {
     /**
      * Método responsável por retornar uma lista de produtos
      * @return List<Product>
+
      */
     public List<Product> getAll(){
         List<Product> products = null;
@@ -47,6 +48,7 @@ public class ProductRepo {
      * Método responsável por buscar um produto conforme o "id"
      * @param id - identificador do produto
      * @return Optional<Product>
+
      */
     public Optional<Product> getProductById(int id) {
         List<Product> products = null;
@@ -85,6 +87,20 @@ public class ProductRepo {
 
         try {
             writer.writeValue(new File(productsPathFile), savedProducts);
+        } catch (Exception ex) {
+            throw new WriteFileException(ex.getMessage());
+        }
+    }
+
+    /**
+     * Atualiza o estoque de produtos.
+     * @param products Lista atualizada de produtos do estoque.
+     */
+    public void updateInventory(List<Product> products){
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+
+        try {
+            writer.writeValue(new File(productsPathFile), products);
         } catch (Exception ex) {
             throw new WriteFileException(ex.getMessage());
         }
