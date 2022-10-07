@@ -28,8 +28,9 @@ public class ProductRepo {
     }
 
     /**
-     * Lista todos os itens do estoque
-     * @return uma List com todos os itens
+     * Método responsável por retornar uma lista de produtos
+     * @return List<Product>
+
      */
     public List<Product> getAll(){
         List<Product> products = null;
@@ -44,9 +45,10 @@ public class ProductRepo {
     }
 
     /**
-     * Lista o produto com ‘id’ especificado.
-     * @param id id do produto a ser buscado.
-     * @return Lista com o item especificado pelo ‘id’.
+     * Método responsável por buscar um produto conforme o "id"
+     * @param id - identificador do produto
+     * @return Optional<Product>
+
      */
     public Optional<Product> getProductById(int id) {
         List<Product> products = null;
@@ -66,8 +68,8 @@ public class ProductRepo {
     }
 
     /**
-     * Adiciona um novo produto ao estoque.
-     * @param productList Lista de produtos a serem adicionados.
+     * Método responsável por adicionar uma lista de produtos
+     * @param productList - Produtos([{"productId","name","category","brand":,"price","quantity","freeShipping","prestige"}])
      */
     public void addProductList(List<Product> productList) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
