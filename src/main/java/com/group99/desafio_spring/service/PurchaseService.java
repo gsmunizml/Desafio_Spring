@@ -51,7 +51,7 @@ public class PurchaseService implements IPurchase {
             if(product.isEmpty())
                 throw new NotFoundException("Produto do Id: " + purchaseItem.getProductId() + " não encontrado");
 
-            product.get().setQuantity(product.get().getQuantity() - purchaseItem.getQuantity());
+//            product.get().setQuantity(product.get().getQuantity() - purchaseItem.getQuantity());
 
             products.add(product.get());
         }
