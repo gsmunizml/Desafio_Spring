@@ -27,6 +27,10 @@ public class ProductRepo {
         ticketIdGenerator = TicketIdGenerator.getInstance();
     }
 
+    /**
+     * Lista todos os itens do estoque
+     * @return uma List com todos os itens
+     */
     public List<Product> getAll(){
         List<Product> products = null;
 
@@ -39,6 +43,11 @@ public class ProductRepo {
         return products;
     }
 
+    /**
+     * Lista o produto com ‘id’ especificado.
+     * @param id id do produto a ser buscado.
+     * @return Lista com o item especificado pelo ‘id’.
+     */
     public Optional<Product> getProductById(int id) {
         List<Product> products = null;
 
@@ -56,6 +65,10 @@ public class ProductRepo {
         return Optional.empty();
     }
 
+    /**
+     * Adiciona um novo produto ao estoque.
+     * @param productList Lista de produtos a serem adicionados.
+     */
     public void addProductList(List<Product> productList) {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         List<Product> savedProducts = new ArrayList<>(this.getAll());
@@ -72,6 +85,20 @@ public class ProductRepo {
 
         try {
             writer.writeValue(new File(productsPathFile), savedProducts);
+        } catch (Exception ex) {
+            throw new WriteFileException(ex.getMessage());
+        }
+    }
+
+    /**
+     * Atualiza o estoque de produtos.
+     * @param products Lista atualizada de produtos do estoque.
+     */
+    public void updateInventory(List<Product> products){
+        ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
+
+        try {
+            writer.writeValue(new File(productsPathFile), products);
         } catch (Exception ex) {
             throw new WriteFileException(ex.getMessage());
         }
