@@ -3,17 +3,15 @@ package com.group99.desafio_spring.repository;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.group99.desafio_spring.exceptions.ReadFileExpection;
-import com.group99.desafio_spring.model.PurchaseTicket;
+import com.group99.desafio_spring.exceptions.ReadFileException;
+import com.group99.desafio_spring.exceptions.WriteFileException;
 import com.group99.desafio_spring.model.ShoppingCart;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Repository
 public class ShoppingCartRepo {
@@ -26,7 +24,7 @@ public class ShoppingCartRepo {
         try {
             shoppingCartList = Arrays.asList(mapper.readValue(new File(pathFile), ShoppingCart[].class));
         } catch (Exception error) {
-            throw new ReadFileExpection(error.getMessage());
+            throw new ReadFileException(error.getMessage());
         }
 
         return shoppingCartList;
@@ -42,7 +40,7 @@ public class ShoppingCartRepo {
                     .findFirst()
                     .get();
         } catch (Exception error) {
-            throw new ReadFileExpection(error.getMessage());
+            throw new ReadFileException(error.getMessage());
         }
     }
 
@@ -59,8 +57,8 @@ public class ShoppingCartRepo {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
         try {
             writer.writeValue(new File(pathFile), shoppingCart);
-        } catch (Exception error) {
-
+        } catch (IOException error) {
+            throw new WriteFileException(error.getMessage());
         }
     }
 }
