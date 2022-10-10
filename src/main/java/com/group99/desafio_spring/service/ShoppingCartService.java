@@ -1,5 +1,6 @@
 package com.group99.desafio_spring.service;
 
+import com.group99.desafio_spring.exceptions.NotFoundException;
 import com.group99.desafio_spring.inteface.IShopingService;
 import com.group99.desafio_spring.model.PurchaseTicket;
 import com.group99.desafio_spring.model.ShoppingCart;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ShoppingCartService implements IShopingService {
@@ -25,7 +25,12 @@ public class ShoppingCartService implements IShopingService {
 
     @Override
     public ShoppingCart getById(int id) {
-        return  repo.getById(id);
+        try {
+            return  repo.getById(id);
+        } catch (NotFoundException error) {
+            throw new NotFoundException(error.getMessage());
+        }
+        
     }
 
     @Override
